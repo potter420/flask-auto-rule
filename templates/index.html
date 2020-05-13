@@ -39,7 +39,7 @@
                     var username = $('#email-password-input #email')[0].value;
                     var email = username + '@msb.com.vn';
                     var password = $('#email-password-input #password')[0].value;
-                    var customerAlert = $('email-password-alert');
+                    var customerAlert = $('#email-password-alert');
                     $.ajax({
                         url: 'authenticate',
                         type: 'POST',
