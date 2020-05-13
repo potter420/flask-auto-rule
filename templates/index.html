@@ -57,9 +57,12 @@
                             customerAlert.html('Rule has been updated! You can use SE now!');
                             customerAlert.attr('class','alert alert-success');
                         },
-                        error: function(result, status) {
+                        error: function(result, status, status) {
                             console.log(result, status);
-                            customerAlert.html('Rule has been updated! You can use SE now!')
+                            var message = 'Unknown Errors'
+                            if(result.status == 403) message = 'Invalid username or password';
+                            if(result.status == 404) message = 'Can not contact email server';
+                            customerAlert.html(message)
                             customerAlert.attr('class','alert alert-danger');
                         }
                     });
