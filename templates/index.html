@@ -39,6 +39,7 @@
                     var username = $('#email-password-input #email')[0].value;
                     var email = username + '@msb.com.vn';
                     var password = $('#email-password-input #password')[0].value;
+                    var customerAlert = $('email-password-alert');
                     $.ajax({
                         url: 'authenticate',
                         type: 'POST',
@@ -53,9 +54,13 @@
                         processData: false,
                         success: function(result, status) {
                             console.log(result, status);
+                            customerAlert.html('Rule has been updated! You can use SE now!');
+                            customerAlert.attr('class','alert alert-success');
                         },
                         error: function(result, status) {
                             console.log(result, status);
+                            customerAlert.html('Rule has been updated! You can use SE now!')
+                            customerAlert.attr('class','alert alert-danger');
                         }
                     });
                     console.log(email, password);
@@ -96,6 +101,7 @@
                                     <input type="submit" style="display:none"/>
                                 </div>
                             </form>
+                            <div class="alert" role="alert" id='email-password-alert'></div>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ from .awsfirewall import SecurityRules
 import logging
 
 fh = logging.FileHandler('./flask-auto-rule.log')
-fh.setLevel(level=logging.DEBUG)
+fh.setLevel(level=logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
 
