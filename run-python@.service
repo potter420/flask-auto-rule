@@ -1,0 +1,12 @@
+[Unit]
+Description=Run python as a Service for module %I
+After=syslog.target network-online.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/etc/run-python/module
+ExecStart=/usr/bin/python3 -m %I
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
