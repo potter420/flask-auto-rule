@@ -3,6 +3,8 @@ from flask.logging import create_logger
 import bjoern
 from exchangelib import Credentials, Account, Configuration
 from exchangelib.errors import UnauthorizedError, TransportError
+import requests.adapters
+from exchangelib.protocol import BaseProtocol
 from .awsfirewall import SecurityRules
 import logging
 
@@ -17,6 +19,16 @@ logger.addHandler(fh)
 logger.setLevel(level=logging.INFO)
 user_ip = ''
 security_rule = SecurityRules()
+
+# Faster authentication for outlook users
+class ProxyAdapter(requests.adapters.HTTPAdapter):
+    def send(self, *args, **kwargs):
+        kwargs['proxies'] = {
+            'http': 'http://172.16.23.2:3128',
+            'https': 'http://172.16.23.2:3128',
+        }
+        return super().send(*args, **kwargs)
+BaseProtocol.HTTP_ADAPTER_CLS = ProxyAdapter
 
 @app.route('/user-ipaddress', methods=['PUT'])
 def get_ip_address():
@@ -61,4 +73,5 @@ def index():
     return render_template('index.html')
     
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5000', debug=True)
+    #app.run(host='0.0.0.0', port='5000', debug=True)
+    bjoern.run(app, host='0.0.0.0', port = 5000)
