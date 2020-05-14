@@ -51,7 +51,7 @@ class SecurityRules():
             oldIpPermissions=[
                 {
                     'FromPort': rule['FromPort'] or 5555,
-                    'IpProtocol': rule['IpProtocol'] or 'tcp',
+                    'IpProtocol': rule['IpProtocol'] or '-1',
                     'IpRanges': [
                         {
                             'CidrIp': rule['CidrIp'],
@@ -65,15 +65,15 @@ class SecurityRules():
         
         newIpPermissions=[
             {
-                'FromPort': rule['FromPort'] or 0,
-                'IpProtocol': rule['IpProtocol'] or '-1',
+                'FromPort':  5555,
+                'IpProtocol': '-1',
                 'IpRanges': [
                     {
                         'CidrIp': ipRanges,
                         'Description': rule['Description'] or description.replace('(?i)',''),
                     },
                 ],
-                'ToPort': rule['ToPort'] or 0,
+                'ToPort': 5555,
             },
         ]
         

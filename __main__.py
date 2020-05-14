@@ -9,7 +9,7 @@ from .awsfirewall import SecurityRules
 import logging
 
 fh = logging.FileHandler('./flask-auto-rule.log')
-fh.setLevel(level=logging.INFO)
+fh.setLevel(level=logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
 
@@ -64,8 +64,8 @@ def authenticate_by_email():
     except TransportError:
         return 'Server Not Found', 404
     except Exception as e:
-        print(type(e))
-        print(e)
+        logger.info(type(e))
+        logger.info(e)
         return 'Unknown Errors', 500
 
 @app.route('/')
@@ -74,4 +74,4 @@ def index():
     
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', port='5000', debug=True)
-    bjoern.run(app, host='0.0.0.0', port = 5000)
+    bjoern.run(app, host='127.0.0.1', port = 5000)
